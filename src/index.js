@@ -25,6 +25,35 @@ function getTinyConfig() {
     }
 };
 
+
+/**
+ * @description 遍历目录下的图片
+ * @param {Object} dir
+ * @param {Object} filelist
+ */
+var fileList = [];
+var walkSync = function (dir,filelist) {
+    files = fs.readdirSync(dir);
+    filelist = filelist || [];
+    files.forEach(function(file) {
+        let fpath = path.join(dir,file);
+        let fstate = fs.statSync(fpath);
+        if (fstate.isDirectory()) {
+            filelist = walkSync(fpath, filelist);
+        } else {
+            let fext = path.extname(fpath);
+            let fsize = ((fstate.size) / 1024).toFixed(2);
+            if (imageSuffix.includes(fext.toLowerCase())) {
+                filelist.push({
+                    'fsPath': fpath,
+                    'imgOriginalSize': fsize
+                });
+            };
+        }
+    });
+    return filelist;
+};
+
 /**
  * @description 文件多选
  * @param {Object} param
@@ -43,10 +72,7 @@ function MultiSelect(param) {
                     let ext = path.extname(fsPath);
                     if (imageSuffix.includes(ext.toLowerCase())) {
                         let fsize = ((stats.size) / 1024).toFixed(2);
-                        fileList.push({
-                            'fsPath': fsPath,
-                            'imgOriginalSize': fsize
-                        })
+                        fileList.push({'fsPath': fsPath,'imgOriginalSize': fsize})
                     };
                 };
             };
@@ -105,8 +131,9 @@ async function operateMoreFile(tinyConfig, fileList) {
     };
 };
 
+
 /**
- * @description 压缩文件
+ * @description Main
  */
 async function Main(param) {
 
@@ -125,7 +152,8 @@ async function Main(param) {
         let fsPath = param.fsPath;
         let stats = fs.statSync(fsPath);
         if (stats.isDirectory()) {
-
+            const DirFileList = walkSync(fsPath);
+            operateMoreFile(tinyConfig, DirFileList);
         };
         if (stats.isFile()) {
             operateOneFile(tinyConfig, fsPath, stats);
@@ -150,13 +178,13 @@ async function Main(param) {
         } else {
             operateMoreFile(tinyConfig, fileList);
         };
-
     } else {
         hx.window.showInformationMessage('选中一个文件或目录后再进行操作。', ['知道了']);
         return;
     };
 
 };
+
 
 module.exports = {
     Main
