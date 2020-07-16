@@ -43,7 +43,7 @@
             },
             {
                 "command": "extension.tinypngClipboard",
-                "title": "TinyPNG: 压缩剪切板里的图片"
+                "title": "TinyPNG: 压缩剪切板中本地图片/目录"
             }
         ],
         "menus": {
@@ -63,7 +63,7 @@
                 },
                 {
                     "command": "extension.tinypngClipboard",
-                    "title": "压缩剪切板里的图片",
+                    "title": "压缩剪切板中本地图片/目录",
                     "group": "toolsMenu@1"
                 }
             ]
