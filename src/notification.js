@@ -25,10 +25,10 @@ function showMsgBox(info) {
 
 
 /**
- * @description 输出控制台
+ * @description 多个文件时，输出控制台
  */
 function OutputChannel(info) {
-    let {success,source,message,imgOriginalSize,afterSize,target} = info;
+    let {success,source,message,imgOriginalSize,afterSize,target,index} = info;
 
     // 创建控制台
     let outputChannel = hx.window.createOutputChannel('图片压缩');
@@ -37,11 +37,11 @@ function OutputChannel(info) {
     // 输出内容
 
     let fname = path.basename(source);
-    let msg = '';
+    let msg = '第 ' + index + ' 张图片, ' + fname + ' ,';
     if (success) {
-        msg = fname + ': ' + "压缩成功, 原先 " + imgOriginalSize + "kb, 压缩后" + afterSize + "kb。";
+        msg = msg + " 压缩成功, 原 " + imgOriginalSize + "kb, 压缩后" + afterSize + "kb。" + "地址: " + target + "\n";
     } else {
-        msg = fname + ': ' + "压缩失败, 原因: " + message;
+        msg = msg + " 压缩失败, 原因: " + message;
     }
     outputChannel.appendLine(msg);
 };

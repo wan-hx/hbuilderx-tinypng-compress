@@ -87,18 +87,20 @@ async function operateMoreFile(tinyConfig, fileList) {
     let {tinyKey,tingyCompressedFilePostfix,tinyForceOverwrite} = tinyConfig;
 
     // print msg
-    let msg = '当前选中的数据, 检测到 ' + fileList.length + ' 图片';
+    let msg = '当前选中的数据, 检测到 ' + fileList.length + ' 张图片, 开始压缩......';
+    const remark = '备注: 受网络、tinypng服务器影响，如操作时间过长，请关闭后重试。\n'
     notification.OutputChannel2(msg);
+    notification.OutputChannel2(remark);
 
-    for (let f of fileList) {
-        let {fsPath,imgOriginalSize} = f;
+    for (let idx in fileList) {
+        let {fsPath,imgOriginalSize} = fileList[idx];
         let imgExtname = path.extname(fsPath);
         let target = fsPath.slice(0, -imgExtname.length) + tingyCompressedFilePostfix + imgExtname;
         if (tinyForceOverwrite) {
             target = fsPath;
         };
         let info = await compress.tinypngCompress(tinyKey, fsPath, imgOriginalSize, target);
-        info = Object.assign(info, {'imgOriginalSize':imgOriginalSize});
+        info = Object.assign(info, {'imgOriginalSize':imgOriginalSize,'index':parseInt(idx) + 1});
         notification.OutputChannel(info);
     };
 };
