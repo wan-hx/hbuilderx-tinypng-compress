@@ -12,7 +12,8 @@
     ],
     "main": "./extension",
     "activationEvents": [
-        "onCommand:extension.tinypngCompress"
+        "onCommand:extension.tinypngCompress",
+        "onCommand:extension.tinypngClipboard"
     ],
     "contributes": {
         "configuration": {
@@ -39,6 +40,10 @@
             {
                 "command": "extension.tinypngCompress",
                 "title": "TinyPNG: 压缩"
+            },
+            {
+                "command": "extension.tinypngClipboard",
+                "title": "TinyPNG: 压缩剪切板里的图片"
             }
         ],
         "menus": {
@@ -50,7 +55,18 @@
                     "when": ""
                 }
             ],
-            "editor/context": []
+            "menubar/tool": [
+                {
+                    "title": "TinyPNG: 压缩",
+                    "group": "ext_settings",
+                    "id": "toolsMenu"
+                },
+                {
+                    "command": "extension.tinypngClipboard",
+                    "title": "压缩剪切板里的图片",
+                    "group": "toolsMenu@1"
+                }
+            ]
         }
     },
     "extensionDependencies": [

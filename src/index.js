@@ -54,6 +54,7 @@ var walkSync = function (dir,filelist) {
     return filelist;
 };
 
+
 /**
  * @description 文件多选
  * @param {Object} param
@@ -133,9 +134,41 @@ async function operateMoreFile(tinyConfig, fileList) {
 
 
 /**
+ * @description 操作剪切板中的图片
+ */
+function operateClipboard(tinyConfig) {
+    let readPromise = hx.env.clipboard.readText();
+    readPromise.then(function(text) {
+        let localPath = text;
+        if (localPath.substring(0, 7) == 'file://') {
+            localPath = localPath.substring(7)
+        }
+        if (!fs.existsSync(localPath)) {
+            return hx.window.showErrorMessage("剪切板中的图片路径不是有效的文件路径。",['关闭']);
+        };
+        const fstate = fs.statSync(localPath);
+        if (fstate.isFile()) {
+            let fext = path.extname(localPath);
+            if (imageSuffix.includes(fext.toLowerCase())) {
+                operateOneFile(tinyConfig,localPath,fstate);
+            } else {
+                return hx.window.showErrorMessage('请确保剪切板中的图片路径是png、jpg。',['我知道了']);
+            };
+        };
+        if (fstate.isDirectory()){
+            const DirFileList = walkSync(localPath);
+            if (DirFileList.length) {
+                operateMoreFile(tinyConfig, DirFileList);
+            };
+        };
+    });
+};
+
+
+/**
  * @description Main
  */
-async function Main(param) {
+async function Main(type,param) {
 
     // get tinypng config
     let tinyConfig = getTinyConfig();
@@ -147,22 +180,26 @@ async function Main(param) {
         return hx.window.showErrorMessage("TinyPNG: 请填写压缩后的图片名称后缀，比如.min");
     };
 
+    if (type == 'clipboard') {
+        operateClipboard(tinyConfig);
+        return;
+    };
+
     // 判断用户选择的数据
     if (param.constructor === Object) {
         let fsPath = param.fsPath;
         let stats = fs.statSync(fsPath);
         if (stats.isDirectory()) {
             const DirFileList = walkSync(fsPath);
-            operateMoreFile(tinyConfig, DirFileList);
+            if (DirFileList.length) {
+                operateMoreFile(tinyConfig, DirFileList);
+            };
         };
         if (stats.isFile()) {
             operateOneFile(tinyConfig, fsPath, stats);
         };
     } else if (param.constructor === Array) {
-        let {
-            isIncludeDirectory,
-            fileList
-        } = await MultiSelect(param);
+        let {isIncludeDirectory,fileList} = await MultiSelect(param);
 
         // 多选且包含目录，则询问用户操作
         if (isIncludeDirectory) {
