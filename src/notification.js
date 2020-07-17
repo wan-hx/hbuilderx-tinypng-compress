@@ -25,6 +25,29 @@ function showMsgBox(info) {
 
 
 /**
+ * @description 右下角弹窗, 网络图片压缩
+ * @param {Object} info
+ */
+function showNetworkMsgBox(info) {
+    let {success,message,target} = info;
+
+    if (!success) {
+        return hx.window.showErrorMessage("TingPNG:" + message);
+    };
+
+    let msg = "TinyPNG: 您提供的网络url图片已压缩成功。"
+    resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开预览"]);
+    resultPromise.then((result) => {
+        if (result == '拷贝路径') {
+            hx.env.clipboard.writeText(target);
+        } else if (result === '打开预览') {
+            hx.workspace.openTextDocument(target);
+        }
+    });
+};
+
+
+/**
  * @description 多个文件时，输出控制台
  */
 function OutputChannel(info) {
@@ -46,8 +69,9 @@ function OutputChannel(info) {
     outputChannel.appendLine(msg);
 };
 
+
 /**
- * @description 输出控制台
+ * @description 输出单条消息到控制台
  */
 function OutputChannel2(msg) {
     // 创建控制台
@@ -60,6 +84,7 @@ function OutputChannel2(msg) {
 
 module.exports = {
     showMsgBox,
+    showNetworkMsgBox,
     OutputChannel,
     OutputChannel2
 }

@@ -1,7 +1,9 @@
-const hx = require('hbuilderx');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const process = require('process')
+
 const tinify = require('tinify');
+const hx = require('hbuilderx');
 
 const compress = require('./compress.js');
 const notification = require('./notification.js');
@@ -99,7 +101,7 @@ async function operateOneFile(tinyConfig, fsPath, fstate) {
     if (tinyForceOverwrite) {
         target = fsPath;
     };
-    let info = await compress.tinypngCompress(tinyKey, fsPath, imgOriginalSize, target);
+    let info = await compress.tinypngFromFile(tinyKey, fsPath, imgOriginalSize, target);
     notification.showMsgBox(info);
 };
 
@@ -114,7 +116,7 @@ async function operateMoreFile(tinyConfig, fileList) {
     let {tinyKey,tingyCompressedFilePostfix,tinyForceOverwrite} = tinyConfig;
 
     // print msg
-    let msg = '当前选中的数据, 检测到 ' + fileList.length + ' 张图片, 开始压缩......';
+    let msg = '当前选中的内容, 检测到 ' + fileList.length + ' 张图片, 开始压缩......';
     const remark = '备注: 受网络、tinypng服务器影响，如操作时间过长，请关闭后重试。\n'
     notification.OutputChannel2(msg);
     notification.OutputChannel2(remark);
@@ -126,7 +128,7 @@ async function operateMoreFile(tinyConfig, fileList) {
         if (tinyForceOverwrite) {
             target = fsPath;
         };
-        let info = await compress.tinypngCompress(tinyKey, fsPath, imgOriginalSize, target);
+        let info = await compress.tinypngFromFile(tinyKey, fsPath, imgOriginalSize, target);
         info = Object.assign(info, {'imgOriginalSize':imgOriginalSize,'index':parseInt(idx) + 1});
         notification.OutputChannel(info);
     };
@@ -166,6 +168,31 @@ function operateClipboard(tinyConfig) {
 
 
 /**
+ * @description 操作网络图片
+ * @param {String} tinyKey
+ */
+function operateNetworkPictures(tinyKey,) {
+    // 存储路径
+    const env = process.env;
+    let timestamp = (new Date()).getTime();
+    const target = path.join(env.HOME,'Desktop',timestamp + '.png');
+
+    async function compressImgUrl(imgUrl) {
+        let res = await compress.tinypngFromUrl(tinyKey,imgUrl,target);
+        notification.showNetworkMsgBox(res);
+    };
+
+    let inputPromise = hx.window.showInputBox({
+        prompt: "请输入网络图片URL"
+    });
+    inputPromise.then((imgUrl) => {
+        if (imgUrl.trim() != '') {
+            compressImgUrl(imgUrl);
+        };
+    })
+};
+
+/**
  * @description Main
  */
 async function Main(type,param) {
@@ -180,28 +207,37 @@ async function Main(type,param) {
         return hx.window.showErrorMessage("TinyPNG: 请填写压缩后的图片名称后缀，比如.min");
     };
 
+    // 剪切板本地图片/目录压缩
     if (type == 'clipboard') {
         operateClipboard(tinyConfig);
         return;
     };
 
-    // 判断用户选择的数据
+    // 网络地址图片压缩
+    if (type == 'network') {
+        operateNetworkPictures(tinyKey);
+        return;
+    };
+
+    // 本地图片压缩: 判断用户选择的数据
     if (param.constructor === Object) {
         let fsPath = param.fsPath;
         let stats = fs.statSync(fsPath);
+        // 图片目录
         if (stats.isDirectory()) {
             const DirFileList = walkSync(fsPath);
             if (DirFileList.length) {
                 operateMoreFile(tinyConfig, DirFileList);
             };
         };
+        // 单张图片
         if (stats.isFile()) {
             operateOneFile(tinyConfig, fsPath, stats);
         };
     } else if (param.constructor === Array) {
         let {isIncludeDirectory,fileList} = await MultiSelect(param);
 
-        // 多选且包含目录，则询问用户操作
+        // 项目管理器：多选且包含目录，则询问用户操作
         if (isIncludeDirectory) {
             const msg =
                 'TinyPNG: 多选的数据中，同时检测到目录和文件，如继续，将忽略目录。<p style="color:#787878;font-size:13px;">备注: 如需按目录压缩，请直接选中目录。</p><p></p>'

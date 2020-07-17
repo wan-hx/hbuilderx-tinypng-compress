@@ -13,7 +13,8 @@
     "main": "./extension",
     "activationEvents": [
         "onCommand:extension.tinypngCompress",
-        "onCommand:extension.tinypngClipboard"
+        "onCommand:extension.tinypngClipboard",
+        "onCommand:extension.tinypngNetworkPictures"
     ],
     "contributes": {
         "configuration": {
@@ -36,37 +37,36 @@
                 }
             }
         },
-        "commands": [
-            {
-                "command": "extension.tinypngCompress",
-                "title": "TinyPNG: 压缩"
-            },
-            {
-                "command": "extension.tinypngClipboard",
-                "title": "TinyPNG: 压缩剪切板中本地图片/目录"
-            }
-        ],
+        "commands": [{
+            "command": "extension.tinypngCompress",
+            "title": "TinyPNG: 压缩"
+        }, {
+            "command": "extension.tinypngClipboard",
+            "title": "TinyPNG: 剪切板本地图片/目录压缩"
+        }, {
+            "command": "extension.tinypngNetworkPictures",
+            "title": "TinyPNG: 网络地址图片压缩"
+        }],
         "menus": {
-            "explorer/context": [
-                {
-                    "command": "extension.tinypngCompress",
-                    "title": "TinyPNG: 压缩",
-                    "group": "z_commands",
-                    "when": ""
-                }
-            ],
-            "menubar/tool": [
-                {
-                    "title": "TinyPNG: 压缩",
-                    "group": "ext_settings",
-                    "id": "toolsMenu"
-                },
-                {
-                    "command": "extension.tinypngClipboard",
-                    "title": "压缩剪切板中本地图片/目录",
-                    "group": "toolsMenu@1"
-                }
-            ]
+            "explorer/context": [{
+                "command": "extension.tinypngCompress",
+                "title": "TinyPNG: 压缩",
+                "group": "z_commands",
+                "when": ""
+            }],
+            "menubar/tool": [{
+                "title": "TinyPNG: 压缩",
+                "group": "ext_settings",
+                "id": "toolsMenu"
+            }, {
+                "command": "extension.tinypngClipboard",
+                "title": "剪切板本地图片/目录压缩",
+                "group": "toolsMenu@1"
+            }, {
+                "command": "extension.tinypngNetworkPictures",
+                "title": "网络地址图片压缩",
+                "group": "toolsMenu@2"
+            }]
         }
     },
     "extensionDependencies": [
