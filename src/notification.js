@@ -35,7 +35,7 @@ function showNetworkMsgBox(info) {
         return hx.window.showErrorMessage("TingPNG:" + message);
     };
 
-    let msg = "TinyPNG: 您提供的网络url图片已压缩成功。"
+    let msg = "TinyPNG: 您提供的网络url图片已压缩成功，请到桌面查看。"
     resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开预览"]);
     resultPromise.then((result) => {
         if (result == '拷贝路径') {
