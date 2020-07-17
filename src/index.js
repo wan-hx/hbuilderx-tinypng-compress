@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const process = require('process')
 
@@ -7,6 +8,7 @@ const hx = require('hbuilderx');
 
 const compress = require('./compress.js');
 const notification = require('./notification.js');
+
 
 // 允许的图片后缀
 const imageSuffix = ['.png', '.jpg', '.jpeg'];
@@ -173,9 +175,16 @@ function operateClipboard(tinyConfig) {
  */
 function operateNetworkPictures(tinyKey,) {
     // 存储路径
-    const env = process.env;
+    let target = '';
     let timestamp = (new Date()).getTime();
-    const target = path.join(env.HOME,'Desktop',timestamp + '.png');
+
+    const env = process.env;
+    const osName = os.platform();
+    if (osName == 'darwin') {
+        target = path.join(env.HOME,'Desktop',timestamp + '.png');
+    } else {
+        target = path.join(env.HOMEDRIVE,env.HOMEPATH,'Desktop',timestamp + '.png');
+    };
 
     async function compressImgUrl(imgUrl) {
         let res = await compress.tinypngFromUrl(tinyKey,imgUrl,target);
@@ -188,6 +197,8 @@ function operateNetworkPictures(tinyKey,) {
     inputPromise.then((imgUrl) => {
         if (imgUrl.trim() != '') {
             compressImgUrl(imgUrl);
+        } else {
+            hx.window.setStatusBarMessage('TinyPNG: 请输入网络地址',5000,'error');
         };
     })
 };

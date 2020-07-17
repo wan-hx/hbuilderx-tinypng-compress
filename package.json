@@ -1,8 +1,8 @@
 {
     "name": "tinypng",
-    "description": "TinyPng - png/jpg图片压缩",
+    "description": "图片压缩，支持选中单个文件、多个文件、目录进行压缩，支持压缩网络url图片",
     "displayName": "TinyPng - png/jpg图片压缩",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "publisher": "OneOne",
     "engines": {
         "HBuilderX": "^2.7.0"
@@ -14,7 +14,8 @@
     "activationEvents": [
         "onCommand:extension.tinypngCompress",
         "onCommand:extension.tinypngClipboard",
-        "onCommand:extension.tinypngNetworkPictures"
+        "onCommand:extension.tinypngNetworkPictures",
+        "onCommand:extension.tinypngHelp"
     ],
     "contributes": {
         "configuration": {
@@ -42,15 +43,18 @@
             "title": "TinyPNG: 压缩"
         }, {
             "command": "extension.tinypngClipboard",
-            "title": "TinyPNG: 剪切板本地图片/目录压缩"
+            "title": "TinyPNG: 剪切板本地图片/目录"
         }, {
             "command": "extension.tinypngNetworkPictures",
-            "title": "TinyPNG: 网络地址图片压缩"
+            "title": "TinyPNG: 网络地址图片"
+        }, {
+            "command": "extension.tinypngHelp",
+            "title": "TinyPNG: 关于插件/评价"
         }],
         "menus": {
             "explorer/context": [{
                 "command": "extension.tinypngCompress",
-                "title": "TinyPNG: 压缩",
+                "title": "TinyPNG: 压缩 (选中目录或文件)",
                 "group": "z_commands",
                 "when": ""
             }],
@@ -60,12 +64,18 @@
                 "id": "toolsMenu"
             }, {
                 "command": "extension.tinypngClipboard",
-                "title": "剪切板本地图片/目录压缩",
+                "title": "剪切板 (本地图片/目录路径)",
                 "group": "toolsMenu@1"
             }, {
                 "command": "extension.tinypngNetworkPictures",
-                "title": "网络地址图片压缩",
+                "title": "网络地址图片",
                 "group": "toolsMenu@2"
+            }, {
+                "group": "toolsMenu@3"
+            }, {
+                "command": "extension.tinypngHelp",
+                "title": "关于插件/评价",
+                "group": "toolsMenu@4"
             }]
         }
     },
