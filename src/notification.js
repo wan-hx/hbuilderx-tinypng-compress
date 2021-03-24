@@ -6,20 +6,23 @@ const path = require('path');
  * @param {Object} info
  */
 function showMsgBox(info) {
-    let {success,message,imgOriginalSize,afterSize,target} = info;
+    let {success,message,imgOriginalSize,afterSize,target,tinyForceOverwrite} = info;
 
     if (!success) {
         return hx.window.showErrorMessage("TingPNG:" + message);
     };
 
     let msg = "TinyPNG: 压缩成功, 原先 " + imgOriginalSize + "kb, 压缩后" + afterSize + "kb。";
-    resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开图片"]);
+    if (tinyForceOverwrite) {
+        msg = msg + "\n已强制覆盖本地原图，如不需要，请到插件设置中，进行修改。\n"
+    }
+    resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开", "关闭"]);
     resultPromise.then((result) => {
         if (result == '拷贝路径') {
             hx.env.clipboard.writeText(target);
         } else if (result === '打开图片') {
             hx.workspace.openTextDocument(target);
-        }
+        };
     });
 };
 
@@ -36,7 +39,7 @@ function showNetworkMsgBox(info) {
     };
 
     let msg = "TinyPNG: 您提供的网络url图片已压缩成功，请到桌面查看。"
-    resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开预览"]);
+    resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开", "关闭"]);
     resultPromise.then((result) => {
         if (result == '拷贝路径') {
             hx.env.clipboard.writeText(target);

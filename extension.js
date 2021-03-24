@@ -1,17 +1,27 @@
 const hx = require("hbuilderx");
 const main = require("./src/index.js");
 
-//该方法将在插件激活的时候调用
 function activate(context) {
+    // 压缩项目管理器选中的内容
     let disposable = hx.commands.registerCommand('extension.tinypngCompress', (param) => {
         main.Main('filesExplorer', param);
     });
+
+    // 压缩剪切板中图片路径、目录路径
     let tinypngClipboard = hx.commands.registerCommand('extension.tinypngClipboard', (param) => {
         main.Main('clipboard', param);
     });
+
+    // 压缩网络地址图片，必须是url
     let tinypngNetworkPictures = hx.commands.registerCommand('extension.tinypngNetworkPictures', (param) => {
         main.Main('network', param);
     });
+
+    // 压缩编辑器选中的内容，比如markdown引入的图片、html引用的图片，选中后，直接压缩
+    let tinypngSelected = hx.commands.registerCommand('extension.tinypngSelected', (param) => {
+        main.Main('Selected', param);
+    });
+
     let tinypngHelp = hx.commands.registerCommand('extension.tinypngHelp', (param) => {
         hx.env.openExternal('https://ext.dcloud.net.cn/plugin?name=tinypng-compress');
     });

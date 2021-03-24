@@ -12,7 +12,7 @@ const hx = require('hbuilderx');
 function tinypngFromFile(tinyKey, imgPath, imgOriginalSize, target) {
 
     tinify.key = tinyKey;
-    hx.window.setStatusBarMessage('TinyPNG: 开始压缩, 可能需要数秒, 请耐心等待.', 30000, 'info');
+    hx.window.setStatusBarMessage('TinyPNG: 开始压缩, 可能需要数秒, 请耐心等待.....', 300000, 'info');
 
     var info = {
         'success': false,
@@ -47,7 +47,7 @@ function tinypngFromFile(tinyKey, imgPath, imgOriginalSize, target) {
  */
 function tinypngFromUrl(tinyKey,imgUrl,target) {
     tinify.key = tinyKey;
-    hx.window.setStatusBarMessage('TinyPNG: 开始压缩, 可能需要数秒, 请耐心等待.', 30000, 'info');
+    hx.window.setStatusBarMessage('TinyPNG: 开始压缩, 可能需要数秒, 请耐心等待.....', 300000, 'info');
 
     var info = {
         'success': false,
