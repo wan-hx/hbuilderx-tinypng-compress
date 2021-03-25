@@ -16,7 +16,9 @@
         "onCommand:extension.tinypngClipboard",
         "onCommand:extension.tinypngNetworkPictures",
         "onCommand:extension.tinypngHelp",
-        "onCommand:extension.tinypngSelected"
+        "onCommand:extension.tinypngSelected",
+        "onCommand:extension.tinypngEditorRightMenuConfig",
+        "onCommand:extension.tingypngforceOverwriteConfig"
     ],
     "contributes": {
         "configuration": {
@@ -36,6 +38,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "压缩完成后，是否强制写入覆盖原图片, 默认为false"
+                },
+                "TinyPng.isShowEditorRightMenu": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "编辑器右键菜单显示 TinyPng菜单, 默认为true"
                 }
             }
         },
@@ -57,6 +64,14 @@
                 "title": "TinyPNG: 编辑器光标选中内容"
             },
             {
+                "command": "extension.tingypngforceOverwriteConfig",
+                "title": "TinyPNG: 压缩后是否强制覆盖原图"
+            },
+            {
+                "command": "extension.tinypngEditorRightMenuConfig",
+                "title": "TinyPNG: 编辑器右键菜单是否显示TinyPNG"
+            },
+            {
                 "command": "extension.tinypngHelp",
                 "title": "TinyPNG: 关于插件/评价"
             }
@@ -71,6 +86,14 @@
                     "title": "TinyPNG 无损压缩 (选中目录或图片)",
                     "group": "z_commands",
                     "when": "expression.filelimit"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "extension.tinypngSelected",
+                    "title": "TinyPNG 无损压缩（光标选中内容）",
+                    "group": "copy",
+                    "when": "config.TinyPng.isShowEditorRightMenu"
                 }
             ],
             "menubar/tool": [
@@ -98,9 +121,24 @@
                     "group": "toolsMenu@3"
                 },
                 {
+                    "command": "extension.tinypngEditorRightMenuConfig",
+                    "title": "编辑器右键菜单显示TinyPng",
+                    "group": "toolsMenu@3",
+                    "checked": "config.TinyPng.isShowEditorRightMenu"
+                },
+                {
+                    "command": "extension.tingypngforceOverwriteConfig",
+                    "title": "压缩后是否强制覆盖原图",
+                    "group": "toolsMenu@4",
+                    "checked": "config.TinyPng.forceOverwrite"
+                },
+                {
+                    "group": "toolsMenu@5"
+                },
+                {
                     "command": "extension.tinypngHelp",
                     "title": "关于插件/评价",
-                    "group": "toolsMenu@4"
+                    "group": "toolsMenu@6"
                 }
             ]
         }

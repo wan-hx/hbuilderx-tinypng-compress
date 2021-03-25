@@ -22,6 +22,28 @@ function activate(context) {
         main.Main('Selected', param);
     });
 
+    // 编辑器右键菜单是否显示tinypng菜单
+    let tinypngEditorRightMenu = hx.commands.registerCommand('extension.tinypngEditorRightMenuConfig', () => {
+        let config = hx.workspace.getConfiguration();
+        let isShow = config.get('TinyPng.isShowEditorRightMenu');
+        let result = isShow ? false : true;
+        config.update("TinyPng.isShowEditorRightMenu", result).then(()=>{
+            let text = isShow ? '禁用' : '启用';
+            hx.window.showInformationMessage(`TinyPNG: 编辑器右键菜单，已${text} TingPNG。`, ['我知道了']);
+        });
+    });
+
+    // 压缩后是否强制覆盖原图
+    let tingypngForceOverwriteConfig = hx.commands.registerCommand('extension.tingypngforceOverwriteConfig', () => {
+        let config = hx.workspace.getConfiguration();
+        let isShow = config.get('TinyPng.forceOverwrite');
+        let result = isShow ? false : true;
+        config.update("TinyPng.forceOverwrite", result).then(()=>{
+            let text = isShow ? '禁用' : '启用';
+            hx.window.showInformationMessage(`TinyPNG: 已${text} 强制覆盖原图。`, ['我知道了']);
+        });
+    });
+
     let tinypngHelp = hx.commands.registerCommand('extension.tinypngHelp', (param) => {
         hx.env.openExternal('https://ext.dcloud.net.cn/plugin?name=tinypng-compress');
     });

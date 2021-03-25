@@ -15,12 +15,15 @@ function showMsgBox(info) {
     let msg = "TinyPNG: 压缩成功, 原先 " + imgOriginalSize + "kb, 压缩后" + afterSize + "kb。";
     if (tinyForceOverwrite) {
         msg = msg + "\n已强制覆盖本地原图，如不需要，请到插件设置中，进行修改。\n"
+    } else {
+        const basename = path.basename(target)
+        msg = msg + `\n文件名：${basename} \n`;
     }
     resultPromise = hx.window.showInformationMessage(msg, ["拷贝路径", "打开", "关闭"]);
     resultPromise.then((result) => {
         if (result == '拷贝路径') {
             hx.env.clipboard.writeText(target);
-        } else if (result === '打开图片') {
+        } else if (result === '打开') {
             hx.workspace.openTextDocument(target);
         };
     });
@@ -43,7 +46,7 @@ function showNetworkMsgBox(info) {
     resultPromise.then((result) => {
         if (result == '拷贝路径') {
             hx.env.clipboard.writeText(target);
-        } else if (result === '打开预览') {
+        } else if (result === '打开') {
             hx.workspace.openTextDocument(target);
         }
     });

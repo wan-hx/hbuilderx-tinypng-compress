@@ -277,13 +277,31 @@ async function operateSelectedPictures(param, tinyConfig) {
         return word;
     });
 
-    let imgPath = path.resolve(fsPath,selected);
-    let state = fs.statSync(imgPath);
-    if (!state.isFile()) {
-        return hx.window.showErrorMessage('TinyPng: 光标选中的内容，图片路径不存在。', ['我知道了']);
+    if (selected == '' || selected == undefined) {
+        return hx.window.showErrorMessage('TinyPng: 请在编辑器选中相应内容后再试。', ['我知道了']);
+    };
+
+    // 图片绝对路径
+    let imgPath;
+    
+    // 判断图片路径, 加入选中内容开头是/，则必须获取项目路径
+    if (selected.substr(0, 1) == '/') {
+        try{
+            let projectPath = param.document.workspaceFolder.uri.fsPath;
+            imgPath = path.join(projectPath,selected);
+        }catch(e){
+            return hx.window.showErrorMessage('TinyPng: 请将当前文件所在的目录拖入项目管理器后再试。', ['我知道了']);
+        };
+    } else {
+        imgPath = path.resolve(fsPath,selected);
     };
 
     try{
+        let state = fs.statSync(imgPath);
+        if (!state.isFile()) {
+            return hx.window.showErrorMessage('TinyPng: 光标选中的内容，图片路径不存在。', ['我知道了']);
+        };
+        // 开始压缩
         operateOneFile(tinyConfig, imgPath, state);
     }catch(e){
         console.error(e);
