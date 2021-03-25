@@ -62,7 +62,7 @@
             }
         ],
         "expressions": {
-            "filelimit": "explorerResourceCount == 1 && (explorerResourceIsFolder || ...workspaceFolderRelativePath =~ /(([p|P][n|N][g|G])|([j|J][P|p][g|G])|([j|J][P|p][e|E][g|G]))$/i )"
+            "filelimit": "!explorerResourceIsWorkspaceFolder && (explorerResourceIsFolder || ...workspaceFolderRelativePath =~ /(([p|P][n|N][g|G])|([j|J][P|p][g|G])|([j|J][P|p][e|E][g|G]))$/i )"
         },
         "menus": {
             "explorer/context": [
@@ -91,7 +91,7 @@
                 },
                 {
                     "command": "extension.tinypngSelected",
-                    "title": "编辑器光标选中内容",
+                    "title": "编辑器光标选中的图片路径",
                     "group": "toolsMenu@2"
                 },
                 {
