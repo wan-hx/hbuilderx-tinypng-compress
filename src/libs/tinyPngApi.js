@@ -3,6 +3,8 @@ const path = require('path');
 const tinify = require('tinify');
 const hx = require('hbuilderx');
 
+const { createOutputView } = require('./utils.js');
+
 /**
  * @description tinypng compress
  * @param {Sting} imgPath 图片原路径
@@ -22,21 +24,25 @@ function tinypngFromFile(tinyKey, imgPath, imgOriginalSize, target) {
         'source': imgPath,
         'target': ''
     };
+
     return new Promise((resolve, reject) => {
         tinify.fromFile(imgPath).toFile(target, error => {
             if (error) {
                 info.message = error.message;
-                reject(info);
+                createOutputView(`TinyPng: ${error.message}`, "error");
+                reject("break");
             } else {
-                hx.window.clearStatusBarMessage();
                 let stats2 = fs.statSync(target);
                 info.afterSize = ((stats2.size) / 1024).toFixed(2);
                 info.target = target;
                 info.success = true;
                 resolve(info);
             };
+            hx.window.clearStatusBarMessage();
         });
-    });
+    }).catch( error => {
+        return error;
+    })
 };
 
 /**
@@ -57,7 +63,8 @@ function tinypngFromUrl(tinyKey,imgUrl,target) {
     return new Promise((resolve, reject) => {
         tinify.fromUrl(imgUrl).toFile(target, error=> {
             if (error) {
-                reject(info);
+                createOutputView(`TinyPng: ${error.message}`, "error");
+                reject("break");
             } else {
                 hx.window.clearStatusBarMessage();
                 info.success = true;

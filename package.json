@@ -2,7 +2,7 @@
     "name": "tinypng",
     "description": "无损图片压缩，支持选中单个文件、多个文件、目录进行压缩，支持压缩网络url图片",
     "displayName": "TinyPng - png/jpg无损图片压缩",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "publisher": "OneOne",
     "engines": {
         "HBuilderX": "^2.7.0"
@@ -46,6 +46,14 @@
                 }
             }
         },
+        "keybindings": [
+            {
+                "command": "extension.tinypngCompress",
+                "key": "Ctrl+Alt+C",
+                "when": "expression.filelimit",
+                "macosx": "Command+Alt+C"
+            }
+        ],
         "commands": [
             {
                 "command": "extension.tinypngCompress",
@@ -93,7 +101,10 @@
                     "command": "extension.tinypngSelected",
                     "title": "TinyPNG 无损压缩（光标选中内容）",
                     "group": "copy",
-                    "when": "config.TinyPng.isShowEditorRightMenu"
+                    "when": "config.TinyPng.isShowEditorRightMenu && editorHasSelection"
+                },
+                {
+                    "group": "copy"
                 }
             ],
             "menubar/tool": [
@@ -115,7 +126,8 @@
                 {
                     "command": "extension.tinypngSelected",
                     "title": "编辑器光标选中的图片路径",
-                    "group": "toolsMenu@2"
+                    "group": "toolsMenu@2",
+                    "when": "editorHasSelection"
                 },
                 {
                     "group": "toolsMenu@3"
