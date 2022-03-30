@@ -1,7 +1,8 @@
 {
+    "id": "tinypng-compress",
     "name": "tinypng",
     "description": "无损图片压缩，支持选中单个文件、多个文件、目录进行压缩，支持压缩网络url图片",
-    "displayName": "TinyPng - png/jpg无损图片压缩",
+    "displayName": "TinyPng - 无损压缩png/jpg/Webp图片",
     "version": "2.1.0",
     "publisher": "OneOne",
     "engines": {
@@ -85,7 +86,7 @@
             }
         ],
         "expressions": {
-            "filelimit": "!explorerResourceIsWorkspaceFolder && (explorerResourceIsFolder || ...workspaceFolderRelativePath =~ /(([p|P][n|N][g|G])|([j|J][P|p][g|G])|([j|J][P|p][e|E][g|G]))$/i )"
+            "filelimit": "!explorerResourceIsWorkspaceFolder && (explorerResourceIsFolder || ...workspaceFolderRelativePath =~ /(([p|P][n|N][g|G])|([j|J][P|p][g|G])|([j|J][P|p][e|E][g|G])|webp)$/i )"
         },
         "menus": {
             "explorer/context": [
