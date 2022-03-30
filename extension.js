@@ -39,7 +39,7 @@ function activate(context) {
     context.subscriptions.push(tinypngEditorRightMenu);
 
     // 压缩后是否强制覆盖原图
-    let tingypngForceOverwriteConfig = hx.commands.registerCommand('extension.tingypngforceOverwriteConfig', () => {
+    let tinypngforceOverwriteConfig = hx.commands.registerCommand('extension.tinypngforceOverwriteConfig', () => {
         let config = hx.workspace.getConfiguration();
         let isShow = config.get('TinyPng.forceOverwrite');
         let result = isShow ? false : true;
@@ -48,7 +48,7 @@ function activate(context) {
             hx.window.showInformationMessage(`TinyPNG: 已${text} 强制覆盖原图。`, ['我知道了']);
         });
     });
-    context.subscriptions.push(tingypngForceOverwriteConfig);
+    context.subscriptions.push(tinypngforceOverwriteConfig);
 
     let tinypngHelp = hx.commands.registerCommand('extension.tinypngHelp', (param) => {
         hx.env.openExternal('https://ext.dcloud.net.cn/plugin?name=tinypng-compress');

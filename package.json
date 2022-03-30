@@ -18,7 +18,7 @@
         "onCommand:extension.tinypngHelp",
         "onCommand:extension.tinypngSelected",
         "onCommand:extension.tinypngEditorRightMenuConfig",
-        "onCommand:extension.tingypngforceOverwriteConfig"
+        "onCommand:extension.tinypngforceOverwriteConfig"
     ],
     "contributes": {
         "configuration": {
@@ -72,7 +72,7 @@
                 "title": "TinyPNG: 编辑器光标选中内容"
             },
             {
-                "command": "extension.tingypngforceOverwriteConfig",
+                "command": "extension.tinypngforceOverwriteConfig",
                 "title": "TinyPNG: 压缩后是否强制覆盖原图"
             },
             {
@@ -139,7 +139,7 @@
                     "checked": "config.TinyPng.isShowEditorRightMenu"
                 },
                 {
-                    "command": "extension.tingypngforceOverwriteConfig",
+                    "command": "extension.tinypngforceOverwriteConfig",
                     "title": "压缩后是否强制覆盖原图",
                     "group": "toolsMenu@4",
                     "checked": "config.TinyPng.forceOverwrite"
