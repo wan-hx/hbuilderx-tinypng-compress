@@ -18,7 +18,7 @@ const imageSuffix = ['.png', '.jpg', '.jpeg', '.webp'];
 /**
  * @description 操作剪切板中的图片
  */
-function operateClipboard(tinyConfig) {
+function compressClipboard(tinyConfig) {
     let readPromise = hx.env.clipboard.readText();
     readPromise.then(function(text) {
         let localPath = text;
@@ -55,4 +55,4 @@ function operateClipboard(tinyConfig) {
     });
 };
 
-module.exports = operateClipboard;
+module.exports = compressClipboard;

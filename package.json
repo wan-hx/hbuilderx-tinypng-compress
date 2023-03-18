@@ -16,6 +16,7 @@
         "onCommand:extension.tinypngCompress",
         "onCommand:extension.tinypngClipboard",
         "onCommand:extension.tinypngNetworkPictures",
+        "onCommand:extension.tinypngSelectedLocalDir",
         "onCommand:extension.tinypngHelp",
         "onCommand:extension.tinypngSelected",
         "onCommand:extension.tinypngEditorRightMenuConfig",
@@ -70,6 +71,10 @@
                 "title": "TinyPNG: 网络地址图片"
             },
             {
+                "command": "extension.tinypngSelectedLocalDir",
+                "title": "TinyPNG: 选择本地目录"
+            },
+            {
                 "command": "extension.tinypngSelected",
                 "title": "TinyPNG: 编辑器光标选中内容"
             },
@@ -120,13 +125,18 @@
                     "id": "toolsMenu"
                 },
                 {
+                    "command": "extension.tinypngSelectedLocalDir",
+                    "title": "压缩：选择本地目录",
+                    "group": "toolsMenu@1"
+                },
+                {
                     "command": "extension.tinypngClipboard",
-                    "title": "剪切板 (本地图片/目录路径)",
+                    "title": "压缩：剪切板内容 (本地图片/目录路径)",
                     "group": "toolsMenu@1"
                 },
                 {
                     "command": "extension.tinypngNetworkPictures",
-                    "title": "网络地址图片",
+                    "title": "压缩：网络地址图片",
                     "group": "toolsMenu@2"
                 },
                 {

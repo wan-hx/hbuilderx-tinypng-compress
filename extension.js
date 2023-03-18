@@ -27,6 +27,12 @@ function activate(context) {
     });
     context.subscriptions.push(tinypngEditorSelected);
 
+    // 选择本地目录进行压缩
+    let tinypngLocalDir= hx.commands.registerCommand('extension.tinypngSelectedLocalDir', (param) => {
+        main.Main('localDir', param);
+    });
+    context.subscriptions.push(tinypngLocalDir);
+
     // 编辑器右键菜单是否显示tinypng菜单
     let tinypngEditorRightMenu = hx.commands.registerCommand('extension.tinypngEditorRightMenuConfig', () => {
         let config = hx.workspace.getConfiguration();
@@ -55,7 +61,7 @@ function activate(context) {
         hx.env.openExternal('https://ext.dcloud.net.cn/plugin?name=tinypng-compress');
     });
     context.subscriptions.push(tinypngHelp);
-    
+
     // 设置key
     let tinypngKey = hx.commands.registerCommand('extension.tinypngSetAPIkey', () => {
         setKey();

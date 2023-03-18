@@ -19,7 +19,7 @@ async function useFormDialog(tinyKey,target) {
     ];
 
     let setInfo = await hx.window.showFormDialog({
-        title: "压缩网络地址图片",
+        title: "TinyPng - 压缩网络地址图片",
         width: 490,
         height: 250,
         submitButtonText: "确定(&S)",
@@ -62,7 +62,7 @@ async function compressImgUrl(tinyKey,imgUrl,target) {
  * @description 操作网络图片
  * @param {String} tinyKey
  */
-function operateNetworkPictures(tinyKey) {
+function compressNetworkPictures(tinyKey) {
     // 存储路径
     let target = '';
     let targetDir = "";
@@ -81,7 +81,6 @@ function operateNetworkPictures(tinyKey) {
     try{
         useFormDialog(tinyKey,target);
     }catch(e){
-        console.log('---', e)
         let inputPromise = hx.window.showInputBox({
             prompt: "请输入网络图片URL"
         });
@@ -95,4 +94,4 @@ function operateNetworkPictures(tinyKey) {
     };
 };
 
-module.exports = operateNetworkPictures;
+module.exports = compressNetworkPictures;

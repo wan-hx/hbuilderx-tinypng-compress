@@ -7,12 +7,15 @@ const hx = require('hbuilderx');
 
 const { createOutputView } = require('./libs/utils.js');
 
-const compressClipboard = require('./libs/clipboard.js');
-const compressNetworkPictures = require('./libs/networkImageUrl.js');
-const compressEditorSelectedPictures = require('./libs/hxEditorSelected.js');
-const { compressExplorer } = require('./libs/fileSelected.js');
-
 const setKey = require('./libs/setKey.js');
+
+const { compressExplorer } = require('./libs/fileSelected.js');
+const compressEditorSelectedPictures = require('./libs/compressHxEditorSelected.js');
+
+const compressClipboard = require('./libs/compressClipboard.js');
+const compressNetworkPictures = require('./libs/compressNetworkImageUrl.js');
+
+const compressLocalDir = require('./libs/compressLocalDir.js');
 
 /**
  *@description get TinyPng Config
@@ -88,7 +91,11 @@ async function Main(type,param) {
             break;
         case "filesExplorer":
             // 压缩项目管理器选中内容
-            compressExplorer(param, tinyConfig)
+            compressExplorer(param, tinyConfig);
+            break;
+        case "localDir":
+            // 选择本地目录进行压缩
+            compressLocalDir(tinyConfig);
             break;
         default:
             break;
