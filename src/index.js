@@ -12,6 +12,8 @@ const compressNetworkPictures = require('./libs/networkImageUrl.js');
 const compressEditorSelectedPictures = require('./libs/hxEditorSelected.js');
 const { compressExplorer } = require('./libs/fileSelected.js');
 
+const setKey = require('./libs/setKey.js');
+
 /**
  *@description get TinyPng Config
  */
@@ -61,8 +63,9 @@ async function Main(type,param) {
     // 校验tinypng是否有效
     let validateResult = await gotoValidate(tinyKey);
     if (!validateResult) {
-        createOutputView("TinyPng: api key无效。", "error")
-        createOutputView("TinyPNG: 请在菜单【设置 - 插件设置】中填写有效的ApiKey。", "error")
+        createOutputView("TinyPng: API key无效。", "error");
+        createOutputView("TinyPNG: 请点击菜单【工具 - TinyPNG - 设置API Key】。", "error");
+        setKey();
         return;
     };
 

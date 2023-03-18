@@ -3,7 +3,7 @@
     "name": "tinypng",
     "description": "无损图片压缩，支持选中单个文件、多个文件、目录进行压缩，支持压缩网络url图片",
     "displayName": "TinyPng - 无损压缩png/jpg/Webp图片",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "publisher": "OneOne",
     "engines": {
         "HBuilderX": "^2.7.0"
@@ -19,7 +19,8 @@
         "onCommand:extension.tinypngHelp",
         "onCommand:extension.tinypngSelected",
         "onCommand:extension.tinypngEditorRightMenuConfig",
-        "onCommand:extension.tinypngforceOverwriteConfig"
+        "onCommand:extension.tinypngforceOverwriteConfig",
+        "onCommand:extension.tinypngSetAPIkey"
     ],
     "contributes": {
         "configuration": {
@@ -81,6 +82,10 @@
                 "title": "TinyPNG: 编辑器右键菜单是否显示TinyPNG"
             },
             {
+                "command": "extension.tinypngSetAPIkey",
+                "title": "TinyPNG: 设置API Key"
+            },
+            {
                 "command": "extension.tinypngHelp",
                 "title": "TinyPNG: 关于插件/评价"
             }
@@ -132,6 +137,11 @@
                 },
                 {
                     "group": "toolsMenu@3"
+                },
+                {
+                    "command": "extension.tinypngSetAPIkey",
+                    "title": "设置TinyPNG API key",
+                    "group": "toolsMenu@1"
                 },
                 {
                     "command": "extension.tinypngEditorRightMenuConfig",

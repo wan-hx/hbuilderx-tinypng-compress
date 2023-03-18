@@ -28,7 +28,7 @@ function operateClipboard(tinyConfig) {
 
         // 判断文件是否存在
         if (!fs.existsSync(localPath)) {
-            return hx.window.showErrorMessage("剪切板中的图片路径不是有效的文件路径。",['关闭']);
+            return hx.window.showErrorMessage("剪切板中的图片路径不是有效的文件路径。请先拷贝图片路径或文件夹路径到剪切板。",['关闭']);
         };
 
         // 获取状态

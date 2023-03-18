@@ -1,5 +1,6 @@
 const hx = require("hbuilderx");
 const main = require("./src/index.js");
+const setKey = require("./src/libs/setKey.js");
 
 function activate(context) {
     // 压缩项目管理器选中的内容
@@ -50,10 +51,16 @@ function activate(context) {
     });
     context.subscriptions.push(tinypngforceOverwriteConfig);
 
-    let tinypngHelp = hx.commands.registerCommand('extension.tinypngHelp', (param) => {
+    let tinypngHelp = hx.commands.registerCommand('extension.tinypngHelp', () => {
         hx.env.openExternal('https://ext.dcloud.net.cn/plugin?name=tinypng-compress');
     });
     context.subscriptions.push(tinypngHelp);
+    
+    // 设置key
+    let tinypngKey = hx.commands.registerCommand('extension.tinypngSetAPIkey', () => {
+        setKey();
+    });
+    context.subscriptions.push(tinypngKey);
 };
 
 //该方法将在插件禁用的时候调用（目前是在插件卸载的时候触发）
