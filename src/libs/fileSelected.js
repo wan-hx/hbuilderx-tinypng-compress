@@ -54,9 +54,11 @@ async function operateMoreFile(tinyConfig, fileList) {
 
     // print msg
     let msg = '当前选中的内容, 检测到 ' + fileList.length + ' 张图片, 开始压缩......';
-    const remark = '备注: 受网络、tinypng服务器影响，如操作时间过长，请关闭后重试。\n'
+    const remark1 = '注意: 受网络、tinypng服务器影响，如操作时间过长，请关闭后重试。\n'
+    const remark2 = '备注：菜单【工具 - TinyPNG】，可以设置压缩完成后，是否强制覆盖本地原图。'
     utils.createOutputView(msg);
-    utils.createOutputView(remark);
+    utils.createOutputView(remark2, "warning");
+    utils.createOutputView(remark1, "warning");
 
     for (let idx in fileList) {
         let {fsPath,imgOriginalSize} = fileList[idx];

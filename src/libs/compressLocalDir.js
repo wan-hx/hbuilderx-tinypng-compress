@@ -23,22 +23,15 @@ async function compressLocalDir(tinyConfig) {
         }, {
             type: "label",
             name: "text1",
-            text: '<p style="color: #a0a0a0; font-size: 11px;margin: 10px 0;">1. 仅支持压缩目录下的png、jpg、jpeg、webp图片</p>'
-        },
-        {
-            type: "label",
-            name: "text2",
-            text: '<p style="color: #a0a0a0; font-size: 11px;margin: 10px 0;">2. 网络图片压缩后，图片会保存到原目录</p>'
+            text: '<p style="color: #a0a0a0; font-size: 11px;margin: 10px 0;">1. 仅支持压缩目录下的png、jpg、jpeg、webp图片。完成压缩后，会保存到原目录</p>'
         }
     ];
 
+    let isForceMsg = "如果您需要压缩完成后【强制覆盖本地原图】，请在菜单【设置 - 插件配置】中修改。"
     if (tinyForceOverwrite) {
-        formItems.push({
-            type: "label",
-            name: "text3",
-            text: '<p style="color: #a0a0a0; font-size: 11px;margin: 10px 0;">3. 您曾经设置压缩完成后【强制覆盖本地原图】，如不需要，请在菜单【设置 - 插件配置】中修改。</p>'
-        })
+        isForceMsg = "您曾经设置压缩完成后【强制覆盖本地原图】，如不需要，请在菜单【设置 - 插件配置】中修改。"
     };
+    formItems.push({type: "label",name: "text3",text: `<p style="color: #a0a0a0; font-size: 11px;margin: 10px 0;">2. ${isForceMsg} </p>`})
 
     let result = await hx.window.showFormDialog({
         title: "TinyPng - 压缩本地目录图片",
