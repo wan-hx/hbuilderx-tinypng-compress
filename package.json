@@ -3,7 +3,7 @@
     "name": "tinypng",
     "description": "无损图片压缩，支持选中单个文件、多个文件、目录进行压缩，支持压缩网络url图片",
     "displayName": "TinyPng - 无损压缩png/jpg/Webp图片",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "publisher": "OneOne",
     "engines": {
         "HBuilderX": "^2.7.0"
@@ -122,56 +122,56 @@
                 {
                     "title": "TinyPNG 无损压缩",
                     "group": "ext_settings",
-                    "id": "toolsMenu"
+                    "id": "tinypng"
                 },
                 {
                     "command": "extension.tinypngSelectedLocalDir",
                     "title": "压缩：选择本地目录",
-                    "group": "toolsMenu@1"
+                    "group": "tinypng@1"
                 },
                 {
                     "command": "extension.tinypngClipboard",
                     "title": "压缩：剪切板内容 (本地图片/目录路径)",
-                    "group": "toolsMenu@1"
+                    "group": "tinypng@1"
                 },
                 {
                     "command": "extension.tinypngNetworkPictures",
                     "title": "压缩：网络地址图片",
-                    "group": "toolsMenu@2"
+                    "group": "tinypng@2"
                 },
                 {
                     "command": "extension.tinypngSelected",
                     "title": "编辑器光标选中的图片路径",
-                    "group": "toolsMenu@2",
+                    "group": "tinypng@2",
                     "when": "editorHasSelection"
                 },
                 {
-                    "group": "toolsMenu@3"
+                    "group": "tinypng@3"
                 },
                 {
                     "command": "extension.tinypngSetAPIkey",
                     "title": "设置TinyPNG API key",
-                    "group": "toolsMenu@1"
+                    "group": "tinypng@1"
                 },
                 {
                     "command": "extension.tinypngEditorRightMenuConfig",
                     "title": "编辑器右键菜单显示TinyPng",
-                    "group": "toolsMenu@3",
+                    "group": "tinypng@3",
                     "checked": "config.TinyPng.isShowEditorRightMenu"
                 },
                 {
                     "command": "extension.tinypngforceOverwriteConfig",
                     "title": "压缩后是否强制覆盖原图",
-                    "group": "toolsMenu@4",
+                    "group": "tinypng@4",
                     "checked": "config.TinyPng.forceOverwrite"
                 },
                 {
-                    "group": "toolsMenu@5"
+                    "group": "tinypng@5"
                 },
                 {
                     "command": "extension.tinypngHelp",
                     "title": "关于插件/评价",
-                    "group": "toolsMenu@6"
+                    "group": "tinypng@6"
                 }
             ]
         }
