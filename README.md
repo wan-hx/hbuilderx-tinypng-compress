@@ -44,8 +44,6 @@
 # `配置Tinypng`
 
 - 本插件，需要在tinypng申请key后使用；TinyPng注册使用完全免费。TinyPNG官网：[https://tinypng.com/](https://tinypng.com/)
-- 如下截图，输入邮箱，点击【Send Link】，邮箱会收到一个`链接`，点击后跳转到TinyPNG，即可看到`api key`
+- 打开官网，输入邮箱，点击【Send Link】，邮箱会收到一个`链接`，点击后跳转到TinyPNG，即可看到`api key`
 - 注意：Tinypng每月`500张额度`，看起来不多，但是完全足够使用了。
 - 本插件的目的就是在HBuilderX调用TinyPNG，便捷的压缩图片。
-
-![](https://img-cdn-tc.dcloud.net.cn/uploads/questions/20220124/2966b0d29bf183e0fc619e10438edbbd.jpg)
